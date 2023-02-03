@@ -1,18 +1,60 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from "react-native";
 
 import { styles } from "./styles";
-import { Card } from "../../components/card/index";
+import { Card, NumberContainer } from "../../components";
+import { colors } from "../../constants/themes/colors";
 
-const StartGame = () => {
-  const [enterValue, setenterValue] = useState("");
+export const StartGame = ({onHandleStarGame}) => {
+  const [enterValue, setEnterValue] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectNumber, setSelectNumber] = useState(null);
 
   const onHandlerChange = (text) => {
-    setenterValue(text.replace(/[^0-9]/g, ""));
+    setEnterValue(text.replace(/[^0-9]/g, ""));
   };
 
+  const onHandlerReset = () => {
+    setEnterValue("");
+    setConfirmed(false);
+  };
+
+  const onHandlerConfirm = () => {
+    const choseNumber = parseInt(enterValue, 10);
+    if (isNaN(choseNumber) || choseNumber <= 0 || choseNumber > 99) {
+      Alert.alert("Numero invalido", "El numero tiene que estar entre el 1 y 99", [
+        { text: "Entendido", style: "destructive", onPress: onHandlerReset },
+      ]);
+    } else {
+      setConfirmed(true);
+      setSelectNumber(choseNumber);
+      setEnterValue("");
+    }
+  };
+
+  const onHandleStartGame = () => {
+    onHandleStarGame(selectNumber);
+  };
+
+  const Confirmed = () =>
+    confirmed ? (
+      <Card style={styles.confirmedContainer}>
+        <Text style={styles.textConfirmed}>Numero seleccionado</Text>
+        <NumberContainer number={selectNumber} />
+        <Button title="Start Game" onPress={onHandleStartGame} color={colors.primary} />
+      </Card>
+    ) : null;
+
   return (
-    <TouchableWithoutFeedback 
+    <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
       }}>
@@ -26,12 +68,14 @@ const StartGame = () => {
             style={styles.input}
             placeholder="0"
             onChangeText={onHandlerChange}
+            maxLength={2}
           />
           <View style={styles.buttonContainer}>
-            <Button title="Reiniciar" onPress={() => null} color="#A79694" />
-            <Button title="Confirmar" onPress={() => null} color="#A79694" />
+            <Button title="Reiniciar" onPress={onHandlerReset} color="#A79694" />
+            <Button title="Confirmar" onPress={onHandlerConfirm} color="#A79694" />
           </View>
         </Card>
+        <Confirmed />
       </View>
     </TouchableWithoutFeedback>
   );

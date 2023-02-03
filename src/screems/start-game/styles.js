@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 import { colors } from "../../constants/themes/colors";
 
 export const styles = StyleSheet.create({
@@ -34,8 +35,18 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    width: "100%",
+    width: "75%",
     justifyContent: "space-around",
-    marginTop: 10,
+    marginTop: 20,
+  },
+  confirmedContainer: {
+    width: "75%",
+    height: 180,
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginVertical: 30,
+  },
+  textConfirmed: {
+    fontSize: 18,
   },
 });
