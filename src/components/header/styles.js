@@ -1,12 +1,14 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 import { colors } from "../../constants/themes/colors";
+
+const { width, height } = Dimensions.get("screen");
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
     paddingTop: 50,
-    height: 120,
+    height: height * 0.15,
   },
   title: {
     fontSize: 24,
