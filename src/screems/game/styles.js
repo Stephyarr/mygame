@@ -5,6 +5,23 @@ import { colors } from "../../constants/themes/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.secundary,
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    paddingVertical: 20
   },
+  content: {
+    width:'75%',
+    height: 200,
+    alignItems:'center',
+    justifyContent: 'space-around',
+    borderRadius: 5
+  },
+  title: {
+    fontSize: 18
+  },
+  containerBotton: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent:'space-around'
+  }
 });
